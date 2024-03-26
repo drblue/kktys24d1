@@ -103,4 +103,19 @@ console.log(printCoords(eliteCoords));
 console.log(printCoords({ x: 42, y: 3 }));
 // console.log(printCoords({ lalala: "tjo vad skoj" }));  // also nope
 
-alertCoords({ x: 42, y: 3 });
+// alertCoords({ x: 42, y: 3 });
+
+type StringOrNumber = string | number;
+let s: StringOrNumber = 42;
+s = "3LiT3";
+
+const makeMoreInteresting = (msg: StringOrNumber) => {
+	// Type Narrowing
+	return typeof msg === "number"
+		? String(msg) + "!!!!!"
+		: msg.toUpperCase() + "!!!!!";
+}
+
+console.log(makeMoreInteresting("lolcats are funny"));
+console.log(makeMoreInteresting(1337));
+// console.log(makeMoreInteresting(null));
