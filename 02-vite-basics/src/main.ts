@@ -56,3 +56,51 @@ ages.forEach(age => {
 //            ^?
 	// console.log(age.toLocaleUpperCase());  // Property 'toLocaleUpperCase' does not exist on type 'number'.
 });
+
+/*
+// 😩
+let x = 13;
+let y = 37;
+const printCoords = (x: number, y: number) => {
+	return `x=${x}, y=${y}`;
+}
+console.log(printCoords(x, y));
+console.log(printCoords(42, 1337));
+*/
+
+// type MyString = string;
+// let name: MyString = "Johan";
+
+// type StringOrNumber = string | number;
+// let x: StringOrNumber = "Pelle";
+// x = 42;
+//x = false; // nope!
+
+type Point = {
+	x: number;
+	y: number;
+}
+
+const eliteCoords = {
+	x: 13,
+	y: 37,
+	z: -1,
+}
+
+const notSoEliteCoords: Point = {
+	x: 1,
+	y: 18,
+	// z: -42,  // nope
+}
+
+const printCoords = (coords: Point) => {
+	return `x=${coords.x}, y=${coords.y}`;
+}
+const alertCoords = (coords: Point) => {
+	alert(`x=${coords.x}, y=${coords.y}`);
+}
+console.log(printCoords(eliteCoords));
+console.log(printCoords({ x: 42, y: 3 }));
+// console.log(printCoords({ lalala: "tjo vad skoj" }));  // also nope
+
+alertCoords({ x: 42, y: 3 });
