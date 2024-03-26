@@ -9,11 +9,12 @@ interface Todo {
 	completed: boolean;
 }
 
-const todos: Todo[] = [
-	// { id: 1, title: "Learn about Everyday Types", completed: true },
-	// { id: 2, title: "Learn about DOM Manipulation", completed: true },
-	// { id: 3, title: "Learn about typing fetch/axios responses", completed: false },
-];
+// Get JSON of Todos from localStorage
+const json = localStorage.getItem("todos") ?? "[]";  // null coalesing operator FTW
+//     ^?
+
+// Parse JSON into an array of Todo objects
+const todos: Todo[] = JSON.parse(json) as Todo[];
 
 // Render todos
 const renderTodos = () => {
@@ -22,6 +23,15 @@ const renderTodos = () => {
 				${todo.title}
 			</li>`
 		).join("");
+}
+
+// Save todos to localStorage
+const saveTodos = () => {
+	// Convert todos-array to JSON
+	const json = JSON.stringify(todos);
+
+	// Save JSON to localStorage
+	localStorage.setItem("todos", json);
 }
 
 // "Create a new Todo" form
@@ -40,6 +50,9 @@ newTodoFormEl.addEventListener("submit", (e) => {
 		title: newTodoTitleEl.value,
 		completed: false,
 	});
+
+	// Save dem todos
+	saveTodos();
 
 	// Re-render todos
 	renderTodos();
