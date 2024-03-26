@@ -79,6 +79,7 @@ console.log(printCoords(42, 1337));
 type Point = {
 	x: number;
 	y: number;
+	z?: number;
 }
 
 const eliteCoords = {
@@ -94,7 +95,9 @@ const notSoEliteCoords: Point = {
 }
 
 const printCoords = (coords: Point) => {
-	return `x=${coords.x}, y=${coords.y}`;
+	return coords.z
+		? `x=${coords.x}, y=${coords.y}, z=${coords.z}`
+		: `x=${coords.x}, y=${coords.y}`;
 }
 const alertCoords = (coords: Point) => {
 	alert(`x=${coords.x}, y=${coords.y}`);
@@ -119,3 +122,58 @@ const makeMoreInteresting = (msg: StringOrNumber) => {
 console.log(makeMoreInteresting("lolcats are funny"));
 console.log(makeMoreInteresting(1337));
 // console.log(makeMoreInteresting(null));
+
+interface IPoint {
+	x: number;
+	y: number;
+	z?: StringOrNumber;
+}
+
+type Num = number;
+type NumOrNumArray = number | number[];
+
+interface IAnimal {
+	name: string;
+}
+
+// Interface Merging 🤯
+interface IAnimal {
+	isMammal: boolean;
+}
+// interface IAnimal {
+// 	name: string;
+// 	isMammal: boolean;
+// }
+
+interface IDog extends IAnimal {
+	legs: number;
+}
+
+const doggo: IDog = {
+	name: "Mr Fluffles",
+	isMammal: true,
+	legs: 4,
+}
+
+interface ISnake extends IAnimal {
+	eatsThings: boolean;
+}
+
+type Animal = {
+	name: string;
+}
+
+// 🙅🏻‍♂️
+// type Animal = {
+// 	isMammal: boolean;
+// }
+
+// Dog is an Intersection between Animal and the type we create inline
+type Dog = Animal & {
+	legs: number;
+}
+
+const nando: Dog = {
+	name: "Nando",
+	legs: 4,
+}
