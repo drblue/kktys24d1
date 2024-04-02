@@ -177,3 +177,29 @@ const nando: Dog = {
 	name: "Nando",
 	legs: 4,
 }
+
+/**
+ * Literal Type
+ */
+const username = "drblue";
+//       ^?
+
+type AllowedGitHubUsernames = "drblue" | "pelle";
+
+// We can only assign "drblue" OR "pelle" to a variable of type
+// AllowedGitHubUsernames. We also get autocomplete for valid values.
+const githubUsername: AllowedGitHubUsernames = "drblue";
+const githubUsername2: AllowedGitHubUsernames = "pelle";
+
+// const validHttpVerbs = ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"];
+type HttpVerbs = "GET" | "POST" | "PATCH" | "PUT" | "DELETE" | "OPTIONS" | "HEAD";
+
+const makeHttpRequest = (method: HttpVerbs, endpoint: string) => {
+	// if (!validHttpVerbs.includes(method)) {
+	// 	throw new Error("Not a valid HTTP method");
+	// }
+	return `Would ${method} from/to ${endpoint}`;
+}
+
+// makeHttpRequest("PSOT", "/memes");  // would throw Type Exception
+makeHttpRequest("GET", "/memes");
