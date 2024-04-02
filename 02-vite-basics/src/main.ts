@@ -203,3 +203,21 @@ const makeHttpRequest = (method: HttpVerbs, endpoint: string) => {
 
 // makeHttpRequest("PSOT", "/memes");  // would throw Type Exception
 makeHttpRequest("GET", "/memes");
+
+/*
+// Recap of Type Unions
+type Todo = { id: number, title: string, completed: boolean };
+type TodoOrTodos = Todo | Todo[];
+
+const maybeATodoOrMaybeAList: TodoOrTodos = [{ id: 1337, title: "Look mom, no hands!", completed: false }];
+
+const printDemTodos = (todo: TodoOrTodos) => {
+	todo
+	if (Array.isArray(todo)) {
+		// it's a array
+		todo;
+		return;
+	}
+	todo
+}
+*/
