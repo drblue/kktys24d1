@@ -1,4 +1,4 @@
-import { getTodos } from "./api";
+import { createTodo, getTodos } from "./api";
 import { Todo } from "./todo.types";
 import "./assets/scss/app.scss";
 
@@ -26,34 +26,20 @@ const renderTodos = () => {
 		).join("");
 }
 
-// Save todos to localStorage
-const saveTodos = () => {
-	const json = JSON.stringify(todos);
-	localStorage.setItem("todos", json);
-}
-
 // "Create a new Todo" form
-newTodoFormEl.addEventListener("submit", (e) => {
+newTodoFormEl.addEventListener("submit", async (e) => {
 	e.preventDefault();
 
 	const newTodoTitleEl = document.querySelector<HTMLInputElement>("#new-todo-title")!;
 
-	// Find the highest ID and add 1
-	const todoIds = todos.map(todo => todo.id); // [1, 2, 3]
-	const maxId = Math.max( 0, ...todoIds );   // Math.max( 1, 2, 3 )
-
-	// Create the todo and push it into the array 🫸🏻
-	todos.push({
-		id: maxId + 1,
+	// POST todo to API
+	await createTodo({
 		title: newTodoTitleEl.value,
 		completed: false,
 	});
 
-	// Save dem todos
-	saveTodos();
-
-	// Re-render todos
-	renderTodos();
+	// Get and re-render todos
+	getTodosAndRender();
 });
 
 // Get the todos from API and render initial list of todos

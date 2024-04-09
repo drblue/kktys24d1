@@ -2,7 +2,7 @@
  * All communication with the backend REST API (`json-server`)
  */
 import axios from "axios";
-import { Todo } from "./todo.types";
+import { CreateTodoData, Todo } from "./todo.types";
 
 const baseUrl = import.meta.env.VITE_API_BASEURL || "http://localhost:3000";
 
@@ -24,4 +24,7 @@ export const getTodos = async () => {
 	return response.data;
 }
 
-export const createTodo = () => {}
+export const createTodo = async (data: CreateTodoData) => {
+	const response = await axios.post<Todo>(baseUrl + "/todos", data);
+	return response.data;
+}
