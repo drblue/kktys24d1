@@ -104,6 +104,9 @@ newTodoFormEl.addEventListener("submit", async (e) => {
 		completed: false,
 	});
 
+	// Empty input field
+	newTodoTitleEl.value = "";
+
 	// Get and re-render todos
 	getTodosAndRender();
 });

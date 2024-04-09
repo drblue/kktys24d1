@@ -26,9 +26,14 @@
       "id": 5
     },
     {
-      "title": "Learn about COVFEFE",
+      "title": "Learn about Coffee",
       "completed": false,
       "id": 6
+    },
+    {
+      "title": "Learn about JavaScript",
+      "completed": false,
+      "id": 7
     }
   ]
 }
