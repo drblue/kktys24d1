@@ -1,4 +1,4 @@
-import { createTodo, getTodos, updateTodo } from "./api";
+import { createTodo, deleteTodo, getTodos, updateTodo } from "./api";
 import { Todo } from "./todo.types";
 import "./assets/scss/app.scss";
 
@@ -52,6 +52,16 @@ todosEl.addEventListener("click", async (e) => {
 		await updateTodo(todoId, {
 			completed: !todo.completed,
 		});
+
+		// Get todos and re-render list
+		getTodosAndRender();
+
+	} else if (target.classList.contains("action-delete")) {
+		// Find todo id
+		const todoId = Number(target.closest("li")?.dataset.todoId);
+
+		// Delete todo
+		await deleteTodo(todoId);
 
 		// Get todos and re-render list
 		getTodosAndRender();

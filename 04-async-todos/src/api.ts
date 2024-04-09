@@ -33,3 +33,8 @@ export const updateTodo = async (id: number, data: UpdateTodoData) => {
 	const response = await axios.patch<Todo>(baseUrl + "/todos/" + id, data);
 	return response.data;
 }
+
+export const deleteTodo = async (id: number) => {
+	const response = await axios.delete<Todo>(baseUrl + "/todos/" + id);
+	return response.data;
+}
