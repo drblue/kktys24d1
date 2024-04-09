@@ -1,6 +1,7 @@
 import { createTodo, deleteTodo, getTodos, updateTodo } from "./api";
 import { Todo } from "./todo.types";
 import "./assets/scss/app.scss";
+import { AxiosError } from "axios";
 
 const todosEl = document.querySelector<HTMLUListElement>("#todos")!;
 const newTodoFormEl = document.querySelector<HTMLFormElement>("#new-todo-form")!;
@@ -8,13 +9,29 @@ const newTodoFormEl = document.querySelector<HTMLFormElement>("#new-todo-form")!
 // Local variable containing all the todos form the server
 let todos: Todo[] = [];
 
+const handleError = (err: unknown) => {
+	if (err instanceof AxiosError) {
+		alert("Network error, response code was: " + err.message);
+
+	} else if (err instanceof Error) {
+		alert("Something went wrong: " + err.message);
+
+	} else {
+		alert("Something went wrong.");
+	}
+}
+
 // Get todos from API and render them
 const getTodosAndRender = async () => {
-	// Get todos from server and update local copy
-	todos = await getTodos();
+	try {
+		// Get todos from server and update local copy
+		todos = await getTodos();
 
-	// Render todos
-	renderTodos();
+		// Render todos
+		renderTodos();
+	} catch (err) {
+		handleError(err);
+	}
 }
 
 // Render todos
@@ -49,12 +66,16 @@ todosEl.addEventListener("click", async (e) => {
 		}
 
 		// Update todo
-		await updateTodo(todoId, {
-			completed: !todo.completed,
-		});
+		try {
+			await updateTodo(todoId, {
+				completed: !todo.completed,
+			});
 
-		// Get todos and re-render list
-		getTodosAndRender();
+			// Get todos and re-render list
+			getTodosAndRender();
+		} catch (err) {
+			handleError(err);
+		}
 
 	} else if (target.classList.contains("action-edit")) {
 		// Find todo id
@@ -73,22 +94,30 @@ todosEl.addEventListener("click", async (e) => {
 		}
 
 		// Update todo
-		await updateTodo(todoId, {
-			title,  // title: title
-		});
+		try {
+			await updateTodo(todoId, {
+				title,  // title: title
+			});
 
-		// Get todos and re-render list
-		getTodosAndRender();
+			// Get todos and re-render list
+			getTodosAndRender();
+		} catch (err) {
+			handleError(err);
+		}
 
 	} else if (target.classList.contains("action-delete")) {
 		// Find todo id
 		const todoId = Number(target.closest("li")?.dataset.todoId);
 
 		// Delete todo
-		await deleteTodo(todoId);
+		try {
+			await deleteTodo(todoId);
 
-		// Get todos and re-render list
-		getTodosAndRender();
+			// Get todos and re-render list
+			getTodosAndRender();
+		} catch (err) {
+			handleError(err);
+		}
 	}
 });
 
@@ -99,10 +128,14 @@ newTodoFormEl.addEventListener("submit", async (e) => {
 	const newTodoTitleEl = document.querySelector<HTMLInputElement>("#new-todo-title")!;
 
 	// POST todo to API
-	await createTodo({
-		title: newTodoTitleEl.value,
-		completed: false,
-	});
+	try {
+		await createTodo({
+			title: newTodoTitleEl.value,
+			completed: false,
+		});
+	} catch (err) {
+		handleError(err);
+	}
 
 	// Empty input field
 	newTodoTitleEl.value = "";
