@@ -19,9 +19,23 @@ export const getTodosFetch = async () => {
 	return data as Todo[];
 }
 
-export const getTodos = async () => {
-	const response = await axios.get<Todo[]>(baseUrl + "/todos");
+/**
+ * Make a generic HTTP GET request
+ *
+ * @param endpoint Endpoint to get
+ * @returns
+ */
+const get = async <T>(endpoint: string) => {
+	const response = await axios.get<T>(baseUrl + endpoint);
 	return response.data;
+}
+
+export const getTodos = async () => {
+	return get<Todo[]>("/todos");
+}
+
+export const getTodo = async (id: number) => {
+	return get<Todo>("/todos/" + id);
 }
 
 export const createTodo = async (data: CreateTodoData) => {
