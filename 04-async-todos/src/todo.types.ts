@@ -5,3 +5,6 @@ export interface Todo {
 }
 
 export type CreateTodoData = Omit<Todo, "id">;
+
+export type UpdateTodoData = Partial<Todo>;
+//           ^?

@@ -2,7 +2,7 @@
  * All communication with the backend REST API (`json-server`)
  */
 import axios from "axios";
-import { CreateTodoData, Todo } from "./todo.types";
+import { CreateTodoData, Todo, UpdateTodoData } from "./todo.types";
 
 const baseUrl = import.meta.env.VITE_API_BASEURL || "http://localhost:3000";
 
@@ -26,5 +26,10 @@ export const getTodos = async () => {
 
 export const createTodo = async (data: CreateTodoData) => {
 	const response = await axios.post<Todo>(baseUrl + "/todos", data);
+	return response.data;
+}
+
+export const updateTodo = async (id: number, data: UpdateTodoData) => {
+	const response = await axios.patch<Todo>(baseUrl + "/todos/" + id, data);
 	return response.data;
 }

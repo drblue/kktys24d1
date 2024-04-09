@@ -1,4 +1,4 @@
-import { createTodo, getTodos } from "./api";
+import { createTodo, getTodos, updateTodo } from "./api";
 import { Todo } from "./todo.types";
 import "./assets/scss/app.scss";
 
@@ -20,11 +20,43 @@ const getTodosAndRender = async () => {
 // Render todos
 const renderTodos = () => {
 	todosEl.innerHTML = todos
-		.map(todo => `<li class="list-group-item ${todo.completed ? 'completed' : ''}">
-				${todo.title}
+		.map(todo => `<li class="list-group-item ${todo.completed ? 'completed' : ''}" data-todo-id="${todo.id}">
+				<span class="todo-title">${todo.title}</span>
+				<div class="btn-group">
+					<button class="btn btn-outline-primary btn-sm action-toggle">Toggle</button>
+					<button class="btn btn-outline-warning btn-sm action-edit">Edit</button>
+					<button class="btn btn-outline-danger btn-sm action-delete">Delete</button>
+				</div>
 			</li>`
 		).join("");
 }
+
+// Listen for clicks in the todo-list
+todosEl.addEventListener("click", async (e) => {
+	// Get event target and type it as HTMLElement
+	const target = e.target as HTMLElement;
+	//      ^?
+
+	// Check if we should toggle the todo
+	if (target.classList.contains("action-toggle")) {
+		// Find todo id
+		const todoId = Number(target.closest("li")?.dataset.todoId);
+
+		// Find the todo with the ID
+		const todo = todos.find(todo => todo.id === todoId);
+		if (!todo) {
+			return;
+		}
+
+		// Update todo
+		await updateTodo(todoId, {
+			completed: !todo.completed,
+		});
+
+		// Get todos and re-render list
+		getTodosAndRender();
+	}
+});
 
 // "Create a new Todo" form
 newTodoFormEl.addEventListener("submit", async (e) => {

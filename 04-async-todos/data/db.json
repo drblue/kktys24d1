@@ -22,8 +22,13 @@
     },
     {
       "title": "☕️ Drink all the coffee",
-      "completed": false,
+      "completed": true,
       "id": 5
+    },
+    {
+      "title": "Learn about Utility Types",
+      "completed": false,
+      "id": 6
     }
   ]
 }
