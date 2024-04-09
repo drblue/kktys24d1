@@ -56,6 +56,30 @@ todosEl.addEventListener("click", async (e) => {
 		// Get todos and re-render list
 		getTodosAndRender();
 
+	} else if (target.classList.contains("action-edit")) {
+		// Find todo id
+		const todoId = Number(target.closest("li")?.dataset.todoId);
+
+		// Find the todo with the ID
+		const todo = todos.find(todo => todo.id === todoId);
+		if (!todo) {
+			return;
+		}
+
+		// Ask user about new title
+		const title = prompt("What's the new title?", todo.title);
+		if (!title) {
+			return;
+		}
+
+		// Update todo
+		await updateTodo(todoId, {
+			title,  // title: title
+		});
+
+		// Get todos and re-render list
+		getTodosAndRender();
+
 	} else if (target.classList.contains("action-delete")) {
 		// Find todo id
 		const todoId = Number(target.closest("li")?.dataset.todoId);
