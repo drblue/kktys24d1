@@ -4,7 +4,4 @@ export interface Todo {
 	completed: boolean;
 }
 
-export interface CreateTodoData {
-	title: string;
-	completed: boolean;
-}
+export type CreateTodoData = Omit<Todo, "id">;
