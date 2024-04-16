@@ -30,6 +30,12 @@ const get = async <T>(endpoint: string) => {
 	return response.data;
 }
 
+const post = async <Payload, Return>(endpoint: string, data: Payload) => {
+	const response = await axios.post<Return>(baseUrl + endpoint, data);
+	return response.data;
+//                 ^?
+}
+
 export const getTodos = async () => {
 	return get<Todo[]>("/todos");
 }
@@ -39,8 +45,7 @@ export const getTodo = async (id: number) => {
 }
 
 export const createTodo = async (data: CreateTodoData) => {
-	const response = await axios.post<Todo>(baseUrl + "/todos", data);
-	return response.data;
+	return post<CreateTodoData, Todo>("/todos", data);
 }
 
 export const updateTodo = async (id: number, data: UpdateTodoData) => {
