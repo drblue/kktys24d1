@@ -2,14 +2,16 @@ export interface Todo {
 	id: number;
 	title: string;
 	completed: boolean;
-	[key: string]: any;
+	// [key: string]: any;
 }
 
 export type CreateTodoData = Omit<Todo, "id">;
+export type TodoIdTitle = Pick<Todo, "id" | "title">;
 
 export type UpdateTodoData = Partial<Todo>;
-//           ^?
+export type RequiredTodoData = Required<UpdateTodoData>;
 
+/*
 const fakedTodo: Todo = {
 	id: 1337,
 	title: "My fake todo",
@@ -22,3 +24,4 @@ const secondFakedTodo: Todo = {
 	completed: false,
 	client_id: 42,
 }
+*/
