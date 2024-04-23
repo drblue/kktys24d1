@@ -1,23 +1,37 @@
 import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Spinner from "react-bootstrap/Spinner";
-import TodoListItem from "../components/TodoListItem";
-import { getTodos as TodosAPI_getTodos } from "../services/TodosAPI";
-import { Todo } from "../types/Todo.types";
-import Warning from "../components/alerts/Warning";
 import Success from "../components/alerts/Success";
+import Warning from "../components/alerts/Warning";
+import AddTodoForm from "../components/AddTodoForm";
+import TodoListItem from "../components/TodoListItem";
+import {
+	createTodo as TodosAPI_createTodo,
+	getTodos as TodosAPI_getTodos,
+} from "../services/TodosAPI";
+import { NewTodo, Todo } from "../types/Todo.types";
 
 const TodosPage = () => {
 	const [todos, setTodos] = useState<Todo[] | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 
+	// Create a new todo in the API
+	const addTodo = async (todo: NewTodo) => {
+		await TodosAPI_createTodo(todo);
+
+		// Get todos
+		getTodos();
+	}
+
+	// Get todos from the API
+	const getTodos = async () => {
+		const data = await TodosAPI_getTodos();
+		setIsLoading(false);
+		setTodos(data);
+	}
+
 	// Fetch todos when App is being mounted
 	useEffect(() => {
-		const getTodos = async () => {
-			const data = await TodosAPI_getTodos();
-			setIsLoading(false);
-			setTodos(data);
-		}
 		getTodos();
 	}, []);
 
@@ -25,7 +39,7 @@ const TodosPage = () => {
 		<>
 			<h1 className="mb-3">Todos</h1>
 
-			<p>Here be form</p>
+			<AddTodoForm onAddTodo={addTodo} />
 
 			{isLoading && <Spinner />}
 
