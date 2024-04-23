@@ -1,15 +1,34 @@
 /**
  * Service for communicating with the json-server backend
  */
-import axios from 'axios'
-import { Todo } from '../types/Todo.types.ts'
+import axios from "axios";
+import { Todo } from "../types/Todo.types.ts";
 
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
+// Create a new axios instance
+const instance = axios.create({
+	baseURL: BASE_URL,
+	timeout: 10000,
+	headers: {
+		Accept: "application/json",
+		"Content-Type": "application/json",
+	},
+});
+
+/**
+ * Make a generic HTTP GET request
+ *
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const get = async <T = any>(endpoint: string) => {
+	const res = await instance.get<T>(endpoint);
+	return res.data;
+}
 
 /**
  * Get all todos
  */
 export const getTodos = async () => {
-	const res = await axios.get<Todo[]>(`${BASE_URL}/todos`)
-	return res.data
-}
+	return get<Todo[]>("/todos");
+};
