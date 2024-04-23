@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Spinner from "react-bootstrap/Spinner";
+import TodoListItem from "../components/TodoListItem";
 import { getTodos as TodosAPI_getTodos } from "../services/TodosAPI";
 import { Todo } from "../types/Todo.types";
 
@@ -29,12 +30,10 @@ const TodosPage = () => {
 			{todos && todos.length > 0 && (
 				<ListGroup className="todolist">
 					{todos.map(todo => (
-						<ListGroup.Item
-							className={''}
+						<TodoListItem
 							key={todo.id}
-						>
-							{todo.title}
-						</ListGroup.Item>
+							todo={todo}
+						/>
 					))}
 				</ListGroup>
 			)}
