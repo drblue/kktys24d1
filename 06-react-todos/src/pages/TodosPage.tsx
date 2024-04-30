@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import ListGroup from "react-bootstrap/ListGroup";
 import Spinner from "react-bootstrap/Spinner";
 import Success from "../components/alerts/Success";
@@ -9,31 +9,21 @@ import {
 	createTodo as TodosAPI_createTodo,
 	getTodos as TodosAPI_getTodos,
 } from "../services/TodosAPI";
-import { NewTodo, Todo } from "../types/Todo.types";
+import { NewTodo } from "../types/Todo.types";
 
 const TodosPage = () => {
-	const [todos, setTodos] = useState<Todo[] | null>(null);
-	const [isLoading, setIsLoading] = useState(true);
+	const { data: todos, isLoading } = useQuery({
+		queryKey: ["todos"],
+		queryFn: TodosAPI_getTodos,
+	});
 
 	// Create a new todo in the API
 	const addTodo = async (todo: NewTodo) => {
 		await TodosAPI_createTodo(todo);
 
 		// Get todos
-		getTodos();
+		// getTodos();
 	}
-
-	// Get todos from the API
-	const getTodos = async () => {
-		const data = await TodosAPI_getTodos();
-		setIsLoading(false);
-		setTodos(data);
-	}
-
-	// Fetch todos when App is being mounted
-	useEffect(() => {
-		getTodos();
-	}, []);
 
 	return (
 		<>
