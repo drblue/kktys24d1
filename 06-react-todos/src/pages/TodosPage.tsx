@@ -12,7 +12,7 @@ import {
 import { NewTodo } from "../types/Todo.types";
 
 const TodosPage = () => {
-	const { data: todos, isLoading } = useQuery({
+	const { data: todos, isError, isLoading, refetch } = useQuery({
 		queryKey: ["todos"],
 		queryFn: TodosAPI_getTodos,
 	});
@@ -22,7 +22,7 @@ const TodosPage = () => {
 		await TodosAPI_createTodo(todo);
 
 		// Get todos
-		// getTodos();
+		refetch();
 	}
 
 	return (
@@ -30,6 +30,8 @@ const TodosPage = () => {
 			<h1 className="mb-3">Todos</h1>
 
 			<AddTodoForm onAddTodo={addTodo} />
+
+			{isError && <Warning heading="Bollocks!">Something went terribly wrong, sorry about that</Warning>}
 
 			{isLoading && <Spinner />}
 
