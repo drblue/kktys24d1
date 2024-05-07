@@ -1,13 +1,14 @@
 import express from "express";
+import { index, store } from "./controllers/root";
 
 // Create a new express app (instance)
 const app = express();
 
 // Respond to `GET /` requests
-app.get("/", (req, res) => {
-	console.log("Yayyy, someone visited my root :D :D :D");
-	res.send({ message: "I AM (G)ROOT" });
-});
+app.get("/", index);
+
+// Respond to `POST /` requests
+app.post("/", store);
 
 // Respond to `GET /luke` requests
 app.get("/luke", (req, res) => {
