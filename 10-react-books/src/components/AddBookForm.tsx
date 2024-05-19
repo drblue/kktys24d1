@@ -57,7 +57,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onAddBook }) => {
 				<Form.Control
 					type="number"
 					placeholder="Enter the number of pages"
-					onChange={e => setNewBookPages(parseInt(e.target.value))}
+					onChange={e => setNewBookPages(prevPages => parseInt(e.target.value) || prevPages)}
 					value={newBookPages}
 				/>
 			</Form.Group>
@@ -68,7 +68,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onAddBook }) => {
 					<Form.Control
 						type="number"
 						placeholder="Enter the publisher ID"
-						onChange={e => setNewBookPublisherId(parseInt(e.target.value))}
+						onChange={e => setNewBookPublisherId(prevId => parseInt(e.target.value) || prevId)}
 						value={newBookPublisherId}
 					/>
 				</InputGroup>
