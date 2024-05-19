@@ -21,6 +21,8 @@ const BooksPage = () => {
 		refetch();
 	}
 
+	console.log("books:", books);
+
 	return (
 		<>
 			<h1 className="mb-3">Books</h1>
@@ -31,26 +33,16 @@ const BooksPage = () => {
 
 			{isLoading && <Spinner />}
 
-			{books && books.length > 0 && (
-				<>
-					<ListGroup className="booklist">
-						{books.map(book => (
-							<BookListItem
-								key={book.id}
-								book={book}
-							/>
-						))}
-					</ListGroup>
-
-					<Warning heading="Such books">
-						<p>Very many</p>
-						<p>Much stress</p>
-					</Warning>
-				</>
+			{books && books.data.length > 0 && (
+				<ListGroup className="booklist">
+					{books.data.map(book => (
+						<BookListItem
+							key={book.id}
+							book={book}
+						/>
+					))}
+				</ListGroup>
 			)}
-
-			{books && books.length === 0 && <Success>Great success! 👍🏻</Success>}
-
 		</>
 	)
 }

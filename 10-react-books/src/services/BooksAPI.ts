@@ -2,7 +2,8 @@
  * Service for communicating with the backend (`09-prisma-books`)
  */
 import axios from "axios";
-import { Book, NewBook, PartialBook } from "../types/Book.types";
+import { NewBook, PartialBook } from "../types/Book.types";
+import { BookResponse, BooksResponse } from "./BooksAPI.types";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 const FAKE_DELAY = 0;
@@ -67,28 +68,28 @@ const del = async <Response = unknown>(endpoint: string) => {
  * Get all books
  */
 export const getBooks = async () => {
-	return get<Book[]>("/books");
+	return get<BooksResponse>("/books");
 }
 
 /**
  * Get a single book
  */
 export const getBook = async (id: number) => {
-	return get<Book>(`/books/${id}`);
+	return get<BookResponse>(`/books/${id}`);
 }
 
 /**
  * Create a new book
  */
 export const createBook = async (book: NewBook) => {
-	return post<NewBook, Book>("/books", book);
+	return post<NewBook, BookResponse>("/books", book);
 }
 
 /**
  * Update a book
  */
 export const updateBook = async (id: number, book: PartialBook) => {
-	return patch<PartialBook, Book>(`/books/${id}`, book);
+	return patch<PartialBook, BookResponse>(`/books/${id}`, book);
 }
 
 /**
