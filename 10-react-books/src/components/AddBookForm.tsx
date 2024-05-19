@@ -44,6 +44,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onAddBook }) => {
 			<Form.Group className="mb-3" controlId="title">
 				<Form.Label>Title</Form.Label>
 				<Form.Control
+					ref={newBookTitleRef}
 					type="text"
 					placeholder="Enter the new title"
 					onChange={e => setNewBookTitle(e.target.value)}
