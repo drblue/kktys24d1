@@ -1,0 +1,39 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Learn basic TypeScript",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "title": "Learn async TypeScript",
+      "completed": false
+    },
+    {
+      "id": 3,
+      "title": "Have fun making promises",
+      "completed": false
+    },
+    {
+      "title": "Learn about Generic Types",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "title": "☕️ Drink all the coffee",
+      "completed": true,
+      "id": 5
+    },
+    {
+      "title": "Learn about Coffee",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "title": "Learn about JavaScript",
+      "completed": false,
+      "id": 7
+    }
+  ]
+}

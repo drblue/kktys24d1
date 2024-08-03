@@ -1,0 +1,49 @@
+{
+  "todos": [
+    {
+      "title": "Learn TypeScript in React",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "title": "Learn Advanced TypeScript in React",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "title": "Learn stuff",
+      "completed": true,
+      "id": 3
+    },
+    {
+      "title": "Todo the 3rd von Stress",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "title": "Such wow",
+      "completed": false,
+      "id": 5
+    },
+    {
+      "title": "Much focus",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "title": "Very nice",
+      "completed": false,
+      "id": 7
+    },
+    {
+      "title": "React Query is sooo cooooool!",
+      "completed": false,
+      "id": 8
+    },
+    {
+      "title": "Learn TanStack React Query 🤩",
+      "completed": false,
+      "id": 9
+    }
+  ]
+}

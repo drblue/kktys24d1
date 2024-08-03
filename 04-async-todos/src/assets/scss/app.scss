@@ -1,0 +1,19 @@
+@import "bootstrap/scss/bootstrap";
+
+.list-group-item {
+	display: flex;
+	justify-content: space-between;
+
+	&.completed {
+		.todo-title {
+			font-style: italic;
+			text-decoration: line-through;
+			color: #888;
+		}
+	}
+}
+
+#todos {
+	background-color: #555;
+	padding: 2rem;
+}
